@@ -1,42 +1,43 @@
 using System.Linq.Expressions;
+using System.Text.Json.Serialization;
+
 
 public class Habit
 {
     public  int Id {get; private set;}
     static int TempId;
-    public string Name {get; private set;}
+
+    [JsonInclude]
+    public string Name {get; private    set;}
     public string Description {get; private set;}
-    public string Value;
-    public enum Type
+ 
+    public enum HabitType
     {
         neutral,
         positive,
         negative
     }
 
-
-    public Type type = new Type();
-
+    public HabitType Type = new HabitType();
 
 
-    public Habit(string Name, string Description, Type type)
+    public Habit(string name, string description, HabitType type)
     {
+        
         Id = TempId;
-        this.Name = Name;
-        this.Description = Description;
-        this.type = type;
+        Name = name;
+        Description = description;
+        Type = type;
         TempId++;
     }
 
     public Habit()
     {
-
         Id = TempId;
-        Name = "Без имени";
+        Name = "Undefined";
         Description = "Пусто";
-        type = Type.neutral;
+        Type = HabitType.neutral;
         TempId++;
-    }
+    }    
     
 }
-

@@ -1,11 +1,13 @@
+using System.Text.Json;
+
 class HabitManager()
 {
-    public List<Habit> habitList = new List<Habit>(20);
+    static private List<Habit> habitList = new List<Habit>(20);
+    private string json;
     
-    
-    public void AddHabit(string Name, string Description, Habit.Type type)
+    public void AddHabit(Habit habit)
     {
-        habitList.Add(new Habit(Name, Description, type));
+        habitList.Add(habit);
     }
     
 
@@ -13,5 +15,21 @@ class HabitManager()
     {
       habitList.RemoveAt(number-1);
     } 
+        
+    public void Serialize(Habit habit)
+    {
+        json  = JsonSerializer.Serialize(habit);
+        Console.WriteLine(json);
+    }
+     
+    public void Deserialize()
+    {
+        Habit? restoredHabit = JsonSerializer.Deserialize<Habit>(json);
+    }
+
+    public void Print()
+    {
+        Console.WriteLine(json);
+    }
         
 }

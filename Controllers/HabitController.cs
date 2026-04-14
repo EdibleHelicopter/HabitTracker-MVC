@@ -1,47 +1,38 @@
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
- 
+using System.Text.Json.Serialization;
+
+using System.IO;
+
 namespace MvcApp.Controllers
 {
     public class HomeController : Controller
     {
 
+        public string Name;
         HabitManager manager = new HabitManager();
-        [HttpGet]
-        public ActionResult Index()
-    {
-        string html = @"
-            <html>
-            <head><title>Простая форма</title></head>
-            <body>
-                <h2>Введите значение:</h2>
-                <form method='post' action='/Home/Index'>
-                    <input type='text' name='Value' placeholder='Введите текст' />
-                    <button type='submit'>Отправить</button>
-                </form>
-            </body>
-            </html>";
-
-        return Content(html, "text/html");
-    }  
-        [HttpPost]
-         public ActionResult Index(string Value)
-    {
-        if (string.IsNullOrWhiteSpace(Value))
+         [HttpGet]
+       public async Task Index()
         {
-            Value = "Пустое или некорректное значение";
+            string content = @"<form method='post'>
+                <label>Name:</label><br />
+                <input name='Name' /><br />
+                <input type='submit' value='Send' />
+            </form>";
+            Response.ContentType = "text/html;charset=utf-8";
+            
+            
+            await Response.WriteAsync(content);
+            
         }
-
-        string html = $@"
-            <html>
-            <head><title>Результат</title></head>
-            <body>
-                <h2>Вы ввели:</h2>
-                <p><strong>{Value}</strong></p>
-                <a href='/Home/Index'>Вернуться к форме</a>
-            </body>
-            </html>";
-        return Content(html, "text/html");
+        [HttpPost]
+        public ActionResult Index(Habit habit)
+        {
+            manager.AddHabit(habit);
+            return Content(Name);
+        }
     }
 }
-    }
+
+
+
