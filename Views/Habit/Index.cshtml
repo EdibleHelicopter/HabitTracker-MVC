@@ -1,0 +1,35 @@
+﻿@model List<Habit>
+
+@{
+    ViewData["Title"] = "Мои привычки";
+}
+
+<h1>Мои привычки</h1>
+
+<form asp-controller="Habit" asp-action="AddHabit" method="post">
+    <div class="input-group mb-3">
+        <input type="text" name="Name" class="form-control" placeholder="Введите название привычки" required />
+        <div class="input-group-append">
+            <button type="submit" class="btn btn-primary">Добавить привычку</button>
+        </div>
+    </div>
+</form>
+
+
+<div class="row mt-4">
+    @foreach (var habit in Model)
+    {
+        <div class="col-md-3 mb-3">
+            <div class="card bg-light">
+                <div class="card-body">
+                    <h5 class="card-title">@habit</h5>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+

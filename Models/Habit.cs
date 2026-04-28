@@ -5,10 +5,9 @@ using System.Text.Json.Serialization;
 public class Habit
 {
     public  int Id {get; private set;}
-    static int TempId;
+    static int TempId  = 0;
 
-    [JsonInclude]
-    public string Name {get; private    set;}
+    public string Name {get; set;}
     public string Description {get; private set;}
  
     public enum HabitType
@@ -21,6 +20,7 @@ public class Habit
     public HabitType Type = new HabitType();
 
 
+ 
     public Habit(string name, string description, HabitType type)
     {
         

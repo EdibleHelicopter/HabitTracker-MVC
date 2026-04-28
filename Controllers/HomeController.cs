@@ -2,7 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using WebApp.Models;
 
-namespace WebApp.Controllers;
+namespace TestApp.Controllers;
 
 public class HomeController : Controller
 {
@@ -13,14 +13,10 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    
-
     public IActionResult Index()
     {
         return View();
     }
-    
-    
 
     public IActionResult Privacy()
     {

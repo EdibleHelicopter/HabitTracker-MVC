@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Aleksandr\\Desktop\\c#\\MVC app\\WebApp\\WebApp.csproj": {}
+    "C:\\Users\\Aleksandr\\Desktop\\Prog\\c#\\MVC app\\WebApp\\WebApp.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Aleksandr\\Desktop\\c#\\MVC app\\WebApp\\WebApp.csproj": {
+    "C:\\Users\\Aleksandr\\Desktop\\Prog\\c#\\MVC app\\WebApp\\WebApp.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Aleksandr\\Desktop\\c#\\MVC app\\WebApp\\WebApp.csproj",
+        "projectUniqueName": "C:\\Users\\Aleksandr\\Desktop\\Prog\\c#\\MVC app\\WebApp\\WebApp.csproj",
         "projectName": "WebApp",
-        "projectPath": "C:\\Users\\Aleksandr\\Desktop\\c#\\MVC app\\WebApp\\WebApp.csproj",
+        "projectPath": "C:\\Users\\Aleksandr\\Desktop\\Prog\\c#\\MVC app\\WebApp\\WebApp.csproj",
         "packagesPath": "C:\\Users\\Aleksandr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Aleksandr\\Desktop\\c#\\MVC app\\WebApp\\obj\\",
+        "outputPath": "C:\\Users\\Aleksandr\\Desktop\\Prog\\c#\\MVC app\\WebApp\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Aleksandr\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -43,6 +43,12 @@
       "frameworks": {
         "net9.0": {
           "targetAlias": "net9.0",
+          "dependencies": {
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[13.0.4, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

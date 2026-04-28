@@ -1,37 +1,37 @@
 using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.Json.Serialization;
-
 using System.IO;
+using System.Text.Json;
+using System.Collections.Generic;
 
-namespace MvcApp.Controllers
+public class HabitController : Controller
 {
-    public class HomeController : Controller
-    {
+    HabitManager manager = new HabitManager();
 
-        public string Name;
-        HabitManager manager = new HabitManager();
-         [HttpGet]
-       public async Task Index()
-        {
-            string content = @"<form method='post'>
-                <label>Name:</label><br />
-                <input name='Name' /><br />
-                <input type='submit' value='Send' />
-            </form>";
-            Response.ContentType = "text/html;charset=utf-8";
-            
-            
-            await Response.WriteAsync(content);
-            
-        }
+
+
+    public IActionResult Index(Habit habit)
+    {
+        manager.Deserialize();
+        return View(manager.habitList);
+    }
+    
+
+    
         [HttpPost]
-        public ActionResult Index(Habit habit)
+        public IActionResult AddHabit(Habit habit)
         {
             manager.AddHabit(habit);
-            return Content(Name);
+            manager.Serialize(habit);
+            foreach(Habit _habit in manager.habitList)
+            {
+                Console.WriteLine(_habit.Name);
+            }
+            return View(manager.habitList);
+            return RedirectToAction("Index");
         }
-    }
+        
 }
 
 
