@@ -1,7 +1,8 @@
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.SignalR;
 
-
+/*
 public class Habit
 {
     public  int Id {get; private set;}
@@ -40,4 +41,10 @@ public class Habit
         TempId++;
     }    
     
+}
+*/
+
+public class Habit()
+{
+    public string Name{get; set;}
 }
