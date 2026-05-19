@@ -1,7 +1,6 @@
-class User
+public class User
 {
-    /*
-    string login;
-    string password;
-    */
+    public string login {get; set;}
+    public string password {get; set;}
+    
 }

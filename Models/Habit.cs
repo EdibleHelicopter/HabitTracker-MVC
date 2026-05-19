@@ -1,6 +1,35 @@
 using System.Linq.Expressions;
 using System.Text.Json.Serialization;
+using Microsoft.AspNetCore.Authorization.Infrastructure;
 using Microsoft.AspNetCore.SignalR;
+
+
+public class Habit()
+{
+    string Name{get; set;}
+
+    public Habit ()
+    {
+        Name = "Undefined";
+    }    
+}
+
+/*
+public class Habit
+{
+    public string Name{get; set;}
+    public string Description{get; set;}
+
+    public Habit()
+    {
+      Name = "Undefined";
+      Description = "Пусто";
+    }    
+    
+}
+*/
+
+
 
 /*
 public class Habit
@@ -44,7 +73,4 @@ public class Habit
 }
 */
 
-public class Habit()
-{
-    public string Name{get; set;}
-}
+

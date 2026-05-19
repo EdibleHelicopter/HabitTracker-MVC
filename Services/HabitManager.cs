@@ -8,15 +8,15 @@ public class HabitManager()
     public List<Habit> habitList = new List<Habit>(20);
     string habitsPath = "habitsPath.json";
 
-    public List<Habit> GetHabit()
-    {
-        return habitList;
-    }
-
     public List<Habit> DeserializeHabitsFromFile()
     {
-        string jsonString = File.ReadAllText(habitsPath);
-        return JsonSerializer.Deserialize<List<Habit>>(jsonString);
+        
+        if(File.Exists(habitsPath))
+        {
+            string jsonContent = File.ReadAllText(habitsPath);
+            habitList = JsonSerializer.Deserialize<List<Habit>>(jsonContent); //?? new List<Habit>();
+        }
+        return habitList;
     }
     public void AddHabit(Habit habit)
     {
@@ -30,28 +30,20 @@ public class HabitManager()
 
     public void Serialize(Habit habit)
     {
-        habitList.Add(habit);
         
-        var options = new JsonSerializerOptions
+        if(File.Exists(habitsPath))
+        {
+            string jsonContent = File.ReadAllText(habitsPath);
+            habitList = JsonSerializer.Deserialize<List<Habit>>(jsonContent) ?? new List<Habit>();
+        }
+        
+        habitList.Add(habit);
+        string updatedJson =  JsonSerializer.Serialize(habitList, new JsonSerializerOptions
         {
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
             WriteIndented = true
-        };
-        string json = JsonSerializer.Serialize(habitList, options);
-        File.AppendAllText(habitsPath, json); //+ Environment.NewLine);
-       
-    }
+        });
 
-
-    public void Deserialize()
-    {
-        string json = File.ReadAllText(habitsPath);
-        Habit restoredHabit = JsonSerializer.Deserialize<Habit>(json);
-    }
-
-    public string GetText()
-    {
-        string text = File.ReadAllText(habitsPath);
-        return text;
+        File.WriteAllText(habitsPath, updatedJson);
     }
 }
