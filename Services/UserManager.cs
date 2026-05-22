@@ -1,11 +1,14 @@
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Text.Encodings.Web;
+using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 
 class UserManager
 {
     string userPath = "userPath.json";
     List<User> userList = new List<User>();
+    public int currentId;
+
 
     public void AddUser(User user)
     {
@@ -24,6 +27,7 @@ class UserManager
 
     public void Serialize(User user)
     {
+        user.Id++;
         string json;
         if (File.Exists(userPath))
         {
@@ -37,5 +41,22 @@ class UserManager
             WriteIndented = true
         });
         File.WriteAllText(userPath, json);
+    }
+
+    public void Login(User thisUser)
+    {
+        if (File.Exists(userPath))
+        {
+           string json = File.ReadAllText(userPath);
+           userList =  JsonSerializer.Deserialize<List<User>>(json); 
+           foreach(User user in userList)
+            {
+                if(thisUser.login == user.login & thisUser.password == user.password)
+                {
+                    currentId = user.Id;
+                    Console.WriteLine($"user id - {currentId}");
+                }
+            }
+        }
     }
 }

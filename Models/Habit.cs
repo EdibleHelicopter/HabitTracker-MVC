@@ -6,12 +6,8 @@ using Microsoft.AspNetCore.SignalR;
 
 public class Habit()
 {
-    string Name{get; set;}
-
-    public Habit ()
-    {
-        Name = "Undefined";
-    }    
+   public string Name{get; set;}
+   public int Id{get; set;}
 }
 
 /*

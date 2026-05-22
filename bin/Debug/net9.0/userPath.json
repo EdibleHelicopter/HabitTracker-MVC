@@ -1,4 +1,12 @@
 [
-  {},
-  {}
+  {
+    "login": "dwawa",
+    "password": "wadw",
+    "Id": 2
+  },
+  {
+    "login": "EdiblePizza",
+    "password": "edible",
+    "Id": 2
+  }
 ]

@@ -5,7 +5,7 @@ using System.Text.Encodings.Web;
 
 public class HabitManager()
 {
-    public List<Habit> habitList = new List<Habit>(20);
+    public List<Habit> habitList = new List<Habit>();
     string habitsPath = "habitsPath.json";
 
     public List<Habit> DeserializeHabitsFromFile()
@@ -43,7 +43,7 @@ public class HabitManager()
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
             WriteIndented = true
         });
-
+         
         File.WriteAllText(habitsPath, updatedJson);
     }
 }

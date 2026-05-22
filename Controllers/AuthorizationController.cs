@@ -16,9 +16,16 @@ public class AuthorizationController : Controller
 
 
     [HttpPost]
-    public IActionResult AddUser(User user)
+    public IActionResult AddUser(User user, string action)
     {
+        if(action == "register")
+        {
         userManager.Serialize(user);
-        return RedirectToAction("Index", "Home");
+        }
+        if(action == "login")
+        {
+         userManager.Login(user);    
+        }
+       return RedirectToAction("Index", "Home");
     }
 }

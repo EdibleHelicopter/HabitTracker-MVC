@@ -17,6 +17,7 @@ public class HabitController : Controller
     [HttpPost]
     public IActionResult AddHabit(Habit habit)
     {
+        
         habitManager.Serialize(habit);
         return RedirectToAction("Index");
     }
