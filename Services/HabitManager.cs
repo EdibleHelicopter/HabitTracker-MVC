@@ -1,17 +1,26 @@
 using System.Text.Json;
 using System.Text.Unicode;
 using System.Text.Encodings.Web;
+using System.ComponentModel;
+using Microsoft.AspNetCore.Identity;
 
 
 public class HabitManager()
 {
     public List<Habit> habitList = new List<Habit>();
-    string habitsPath = "habitsPath.json";
+    string habitsPath;
+    
+    
+    public void LoadHabits(int userId)
+    {
+     habitsPath = userId.ToString() + ".json";
+     DeserializeHabitsFromFile();
+    }
 
     public List<Habit> DeserializeHabitsFromFile()
     {
-        
-        if(File.Exists(habitsPath))
+
+        if (File.Exists(habitsPath))
         {
             string jsonContent = File.ReadAllText(habitsPath);
             habitList = JsonSerializer.Deserialize<List<Habit>>(jsonContent); //?? new List<Habit>();
@@ -30,20 +39,20 @@ public class HabitManager()
 
     public void Serialize(Habit habit)
     {
-        
-        if(File.Exists(habitsPath))
+
+        if (File.Exists(habitsPath))
         {
             string jsonContent = File.ReadAllText(habitsPath);
             habitList = JsonSerializer.Deserialize<List<Habit>>(jsonContent) ?? new List<Habit>();
         }
-        
+
         habitList.Add(habit);
-        string updatedJson =  JsonSerializer.Serialize(habitList, new JsonSerializerOptions
+        string updatedJson = JsonSerializer.Serialize(habitList, new JsonSerializerOptions
         {
             Encoder = JavaScriptEncoder.Create(UnicodeRanges.BasicLatin, UnicodeRanges.Cyrillic),
             WriteIndented = true
         });
-         
+
         File.WriteAllText(habitsPath, updatedJson);
     }
 }

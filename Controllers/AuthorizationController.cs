@@ -21,10 +21,12 @@ public class AuthorizationController : Controller
         if(action == "register")
         {
         userManager.Serialize(user);
+        TempData["Id"] = userManager.currentId;
         }
         if(action == "login")
         {
          userManager.Login(user);    
+         TempData["Id"] = userManager.currentId;
         }
        return RedirectToAction("Index", "Home");
     }

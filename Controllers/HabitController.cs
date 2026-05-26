@@ -11,13 +11,15 @@ public class HabitController : Controller
  
     public IActionResult Index()
     {
+        int userId = (int)TempData.Peek("Id");
+        habitManager.LoadHabits(userId);
         return View(habitManager.DeserializeHabitsFromFile());
     }
 
     [HttpPost]
     public IActionResult AddHabit(Habit habit)
     {
-        
+        int userId = (int)TempData.Peek("Id");
         habitManager.Serialize(habit);
         return RedirectToAction("Index");
     }

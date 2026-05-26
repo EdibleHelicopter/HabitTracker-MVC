@@ -8,8 +8,7 @@ class UserManager
     string userPath = "userPath.json";
     List<User> userList = new List<User>();
     public int currentId;
-
-
+    
     public void AddUser(User user)
     {
         userList.Add(user);
@@ -34,6 +33,7 @@ class UserManager
             json = File.ReadAllText(userPath);
             userList =  JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
         }
+        currentId = user.Id;
         AddUser(user);
         json = JsonSerializer.Serialize(userList, new JsonSerializerOptions
         {
@@ -54,9 +54,16 @@ class UserManager
                 if(thisUser.login == user.login & thisUser.password == user.password)
                 {
                     currentId = user.Id;
+    
                     Console.WriteLine($"user id - {currentId}");
                 }
             }
         }
+    }
+
+    public void CreateFile()
+    {
+        string json = currentId.ToString() + ".json";
+        Console.WriteLine(json);
     }
 }

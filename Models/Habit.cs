@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.SignalR;
 public class Habit()
 {
    public string Name{get; set;}
-   public int Id{get; set;}
 }
 
 /*
