@@ -6,13 +6,29 @@ using Microsoft.Extensions.FileSystemGlobbing.Internal.PathSegments;
 class UserManager
 {
     string userPath = "userPath.json";
+    string folderPath = @"C:\Users";
+    string idSave = "SaveId.json";
     List<User> userList = new List<User>();
     public int currentId;
-    
+
+    public UserManager()
+    {
+        if (!Directory.Exists(folderPath))
+        {
+            Directory.CreateDirectory(folderPath);
+            Console.WriteLine($"создана папка {folderPath}");
+        }
+        else
+        {
+            string folderInfo = Path.GetFullPath(folderPath);
+            Console.WriteLine(folderPath);
+        }
+    }
     public void AddUser(User user)
     {
         userList.Add(user);
     }
+
 
     public List<User> DeserializeUsersFromFile()
     {
@@ -26,12 +42,19 @@ class UserManager
 
     public void Serialize(User user)
     {
-        user.Id++;
         string json;
+
+        json = File.ReadAllText(idSave);
+        user.Id = JsonSerializer.Deserialize<int>(json);
+        Console.WriteLine(user.Id);
+        user.Id++;
+        json = JsonSerializer.Serialize(user.Id);
+        File.WriteAllText(idSave, json);
+
         if (File.Exists(userPath))
         {
             json = File.ReadAllText(userPath);
-            userList =  JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
+            userList = JsonSerializer.Deserialize<List<User>>(json) ?? new List<User>();
         }
         currentId = user.Id;
         AddUser(user);
@@ -47,23 +70,16 @@ class UserManager
     {
         if (File.Exists(userPath))
         {
-           string json = File.ReadAllText(userPath);
-           userList =  JsonSerializer.Deserialize<List<User>>(json); 
-           foreach(User user in userList)
+            string json = File.ReadAllText(userPath);
+            userList = JsonSerializer.Deserialize<List<User>>(json);
+            foreach (User user in userList)
             {
-                if(thisUser.login == user.login & thisUser.password == user.password)
+                if (thisUser.login == user.login & thisUser.password == user.password)
                 {
                     currentId = user.Id;
-    
                     Console.WriteLine($"user id - {currentId}");
                 }
             }
         }
-    }
-
-    public void CreateFile()
-    {
-        string json = currentId.ToString() + ".json";
-        Console.WriteLine(json);
     }
 }

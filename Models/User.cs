@@ -1,15 +1,14 @@
 public class User
 {
-    public string login {get; set;}
-    public string password {get; set;}
-    public int Id {get; set;}
+    public string login { get; set; }
+    public string password { get; set; }
+    static int idCount;
+    public int Id { get; set; }
 
-    static int IdCount;
-
-    public User()
+    public void ChangeId()
     {
-        IdCount++;
-        Id = IdCount;
+        idCount++;
+        Id = idCount;
     }
-    
+
 }

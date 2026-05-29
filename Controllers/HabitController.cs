@@ -20,7 +20,7 @@ public class HabitController : Controller
     public IActionResult AddHabit(Habit habit)
     {
         int userId = (int)TempData.Peek("Id");
-        habitManager.Serialize(habit);
+        habitManager.Serialize(habit, userId);
         return RedirectToAction("Index");
     }
 }

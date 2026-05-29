@@ -8,13 +8,15 @@ using Microsoft.AspNetCore.Identity;
 public class HabitManager()
 {
     public List<Habit> habitList = new List<Habit>();
+    string folderPath = @"C:\JsonFiles\Habits";
+
     string habitsPath;
     
     
     public void LoadHabits(int userId)
     {
-     habitsPath = userId.ToString() + ".json";
-     DeserializeHabitsFromFile();
+        habitsPath = userId.ToString() + ".json";
+        DeserializeHabitsFromFile();
     }
 
     public List<Habit> DeserializeHabitsFromFile()
@@ -37,8 +39,9 @@ public class HabitManager()
         habitList.RemoveAt(number - 1);
     }
 
-    public void Serialize(Habit habit)
+    public void Serialize(Habit habit, int userId)
     {
+        habitsPath = userId.ToString() + ".json";
 
         if (File.Exists(habitsPath))
         {
